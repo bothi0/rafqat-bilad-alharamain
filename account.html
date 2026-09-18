@@ -2,9 +2,38 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>حسابي - رفقة بلاد الحرمين</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>حساب الحاج - رفقة بلاد الحرمين</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: Tahoma, sans-serif; background-color: #f4f6f8; margin: 0; padding-bottom: 70px; direction: rtl; text-align: right; }
+        .app-header { background-color: #0f3833; color: white; padding: 15px; text-align: center; }
+        .app-header h2 { margin: 0; font-size: 18px; }
+        .sub-title { font-size: 12px; color: #a3b8b0; }
+        
+        .app-content { padding: 15px; max-width: 500px; margin: auto; }
+        
+        .profile-card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); text-align: center; margin-bottom: 15px; }
+        .profile-card i.avatar { font-size: 40px; color: #0f3833; background: #e6eceb; padding: 15px; border-radius: 50%; margin-bottom: 10px; display: inline-block; }
+        .profile-card h3 { margin: 5px 0; color: #0f3833; font-size: 16px; }
+        .profile-card p { margin: 3px 0; color: #666; font-size: 13px; }
+        
+        .section-title { font-size: 14px; color: #0f3833; margin: 15px 0 8px 0; font-weight: bold; }
+        
+        .info-card { background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 15px; }
+        .info-row { display: flex; justify-content: space-between; font-size: 13px; padding: 8px 0; border-bottom: 1px solid #f0f0f0; }
+        .info-row:last-child { border-bottom: none; }
+        .info-label { color: #666; }
+        .info-value { color: #0f3833; font-weight: bold; }
+        
+        .btn-action { background: #0f3833; color: white; border: none; padding: 10px; border-radius: 6px; width: 100%; font-size: 13px; cursor: pointer; margin-bottom: 10px; text-align: center; }
+        .btn-logout { background: #b91c1c; }
+
+        /* الشريط السفلي */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #ddd; z-index: 1000; }
+        .nav-item { text-decoration: none; color: #718096; font-size: 11px; text-align: center; display: flex; flex-direction: column; align-items: center; }
+        .nav-item i { font-size: 16px; margin-bottom: 3px; }
+        .nav-item.active { color: #0f3833; font-weight: bold; }
+    </style>
 </head>
 <body>
     <header class="app-header">
@@ -13,57 +42,30 @@
     </header>
 
     <div class="app-content">
-        <div class="housing-card" style="text-align: center;">
-            <div class="gold-circle-logo" style="margin: 0 auto 15px auto;">
-                <i class="fa-solid fa-user"></i>
-            </div>
-            <h3 id="displayName">اسم الحاج الكريم</h3>
-            <p class="address">رقم الحاج: #583879</p>
-            <p class="date-badge" id="displayCampaign">حملة بلاد الحرمين</p>
+        <div class="profile-card">
+            <i class="fa-solid fa-user avatar"></i>
+            <h3>اسم الحاج الكريم</h3>
+            <p>رقم الحاج: #583879</p>
+            <p style="color: #0f3833; font-weight: bold; font-size: 12px; margin-top: 5px;">حملة بلاد الحرمين</p>
         </div>
 
-        <div class="housing-card">
-            <h3>معلومات التواصل والمرشد</h3>
-            <div class="info-grid">
-                <div class="info-box">
-                    <span class="info-label">رقم الجوال</span>
-                    <span class="info-value" id="displayPhone">0538794980</span>
-                </div>
-                <div class="info-box">
-                    <span class="info-label">المرشد المسؤول</span>
-                    <span class="info-value" id="displayGuide">الشيخ عبد الله</span>
-                </div>
+        <div class="section-title">معلومات التواصل والمرشد</div>
+        <div class="info-card">
+            <div class="info-row">
+                <span class="info-label">رقم الجوال</span>
+                <span class="info-value">0538794980</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">المرشد المسؤول</span>
+                <span class="info-value">الشيخ عبد الله</span>
             </div>
         </div>
 
-        <!-- زر فتح نافذة التعديل -->
-        <button onclick="openEditModal()" class="btn-bus-schedule" style="width: 100%; border: none; cursor: pointer; margin-bottom: 10px; background: #0f3833; color: white;">
-            <i class="fa-solid fa-pen-to-square"></i> تعديل بيانات الحاج والحملة
-        </button>
-
-        <a href="index.html" class="btn-bus-schedule" style="display: block; text-align: center; text-decoration: none; background: #c5a059; color: #0f3833;">تسجيل الخروج</a>
+        <button class="btn-action" onclick="alert('جاري الانتقال لتعديل البيانات...')">تعديل بيانات الحاج والحملة</button>
+        <button class="btn-action btn-logout" onclick="alert('تم تسجيل الخروج بنجاح')">تسجيل الخروج</button>
     </div>
 
-    <!-- نافذة تعديل البيانات المنبثقة -->
-    <div id="editModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 2000; justify-content: center; align-items: center; padding: 20px;">
-        <div style="background: #fff; width: 100%; max-width: 400px; border-radius: 14px; padding: 20px; text-align: right;">
-            <h3 style="color: #0f3833; margin-top:0;">تعديل الملف الشخصي</h3>
-            
-            <label style="font-size: 11px; font-weight: bold; color: #0f3833;">اسم الحاج:</label>
-            <input type="text" id="inputName" value="اسم الحاج الكريم" style="width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
-
-            <label style="font-size: 11px; font-weight: bold; color: #0f3833;">اسم الحملة:</label>
-            <input type="text" id="inputCampaign" value="حملة بلاد الحرمين" style="width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
-
-            <label style="font-size: 11px; font-weight: bold; color: #0f3833;">اسم المرشد المسؤول:</label>
-            <input type="text" id="inputGuide" value="الشيخ عبد الله" style="width: 100%; padding: 8px; margin-bottom: 15px; border: 1px solid #cbd5e1; border-radius: 6px;">
-
-            <button onclick="saveProfile()" style="background: #0f3833; color: white; border: none; padding: 10px; border-radius: 6px; width: 100%; cursor: pointer; font-weight: bold;">حفظ التعديلات</button>
-            <button onclick="closeEditModal()" style="background: #e53e3e; color: white; border: none; padding: 8px; border-radius: 6px; width: 100%; cursor: pointer; margin-top: 5px;">إغلاق</button>
-        </div>
-    </div>
-
-    <!-- الشريط السفلي -->
+    <!-- الشريط السفلي الثابت -->
     <nav class="bottom-nav">
         <a href="account.html" class="nav-item active"><i class="fa-solid fa-user"></i><span>حسابي</span></a>
         <a href="services.html" class="nav-item"><i class="fa-solid fa-concierge-bell"></i><span>الخدمات</span></a>
@@ -71,17 +73,5 @@
         <a href="schedule.html" class="nav-item"><i class="fa-solid fa-calendar-days"></i><span>الجدول</span></a>
         <a href="notifications.html" class="nav-item"><i class="fa-solid fa-bell"></i><span>التنبيهات</span></a>
     </nav>
-
-    <script>
-        function openEditModal() { document.getElementById('editModal').style.display = 'flex'; }
-        function closeEditModal() { document.getElementById('editModal').style.display = 'none'; }
-        function saveProfile() {
-            document.getElementById('displayName').innerText = document.getElementById('inputName').value;
-            document.getElementById('displayCampaign').innerText = document.getElementById('inputCampaign').value;
-            document.getElementById('displayGuide').innerText = document.getElementById('inputGuide').value;
-            closeEditModal();
-            alert('تم تحديث البيانات بنجاح!');
-        }
-    </script>
 </body>
 </html>
