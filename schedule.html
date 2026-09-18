@@ -2,13 +2,25 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>الجدول الزمني - رفقة بلاد الحرمين</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>الجدول الزمني للحج - رفقة بلاد الحرمين</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        .accordion-header { background: #fff; border: 1px solid #e2e8f0; padding: 14px; border-radius: 8px; margin-bottom: 10px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: bold; color: #0f3833; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
-        .accordion-content { display: none; background: #f8fafc; border: 1px solid #e2e8f0; border-top: none; padding: 12px; border-radius: 0 0 8px 8px; margin-top: -10px; margin-bottom: 10px; font-size: 13px; color: #4a5568; }
-        .accordion-content.active { display: block; }
+        body { font-family: Tahoma, sans-serif; background-color: #f4f6f8; margin: 0; padding-bottom: 70px; direction: rtl; text-align: right; }
+        .app-header { background-color: #0f3833; color: white; padding: 15px; text-align: center; }
+        .app-header h2 { margin: 0; font-size: 18px; }
+        .sub-title { font-size: 12px; color: #a3b8b0; }
+        
+        .app-content { padding: 15px; max-width: 500px; margin: auto; }
+        
+        .day-card { background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 12px; border-right: 4px solid #0f3833; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        .day-title { font-size: 14px; font-weight: bold; color: #0f3833; }
+        .day-card i { color: #0f3833; }
+
+        /* الشريط السفلي */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #ddd; z-index: 1000; }
+        .nav-item { text-decoration: none; color: #718096; font-size: 11px; text-align: center; display: flex; flex-direction: column; align-items: center; }
+        .nav-item i { font-size: 16px; margin-bottom: 3px; }
+        .nav-item.active { color: #0f3833; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -18,59 +30,25 @@
     </header>
 
     <div class="app-content">
-        <!-- اليوم الأول -->
-        <div class="accordion-header" onclick="toggleAccordion('day1')">
-            <span>اليوم الأول (8 ذو الحجة - التروية)</span>
-            <i class="fa-solid fa-chevron-down" id="icon-day1"></i>
+        <div class="day-card" onclick="alert('اليوم الأول: التوجه إلى منى والمبيت بها.')">
+            <span class="day-title">اليوم الأول (8 ذو الحجة - التروية)</span>
+            <i class="fa-solid fa-chevron-left"></i>
         </div>
-        <div id="day1" class="accordion-content">
-            <ul style="padding-right: 20px; margin: 0;">
-                <li>التوجه إلى منى صباحاً والإقامة فيها.</li>
-                <li>أداء صلوات الظهر والعصر والمغرب والعشاء قصراً بدون جمع.</li>
-                <li>المبيت بمنى اقتداءً بالسنة النبوية.</li>
-            </ul>
+        <div class="day-card" onclick="alert('اليوم الثاني: الوقوف بعرفة ثم المبيت بمزدلفة.')">
+            <span class="day-title">اليوم الثاني (9 ذو الحجة - يوم عرفة)</span>
+            <i class="fa-solid fa-chevron-left"></i>
         </div>
-
-        <!-- اليوم الثاني -->
-        <div class="accordion-header" onclick="toggleAccordion('day2')">
-            <span>اليوم الثاني (9 ذو الحجة - يوم عرفة)</span>
-            <i class="fa-solid fa-chevron-down" id="icon-day2"></i>
+        <div class="day-card" onclick="alert('اليوم الثالث: رمي جمرة العقبة، النحر، الحلق، وطواف الإفاضة.')">
+            <span class="day-title">اليوم الثالث (10 ذو الحجة - يوم النحر)</span>
+            <i class="fa-solid fa-chevron-left"></i>
         </div>
-        <div id="day2" class="accordion-content">
-            <ul style="padding-right: 20px; margin: 0;">
-                <li>النفير من منى إلى صعيد عرفات الطاهر بعد طلوع الشمس.</li>
-                <li>أداء صلاتي الظهر والعصر جمع تقديم واصرار في مسجد نمرة.</li>
-                <li>الالتزام بالدعاء والذكر حتى غروب الشمس.</li>
-            </ul>
-        </div>
-
-        <!-- اليوم الثالث (أيام التشريق وغيرها) -->
-        <div class="accordion-header" onclick="toggleAccordion('day3')">
-            <span>اليوم الثالث (10 ذو الحجة - يوم النحر)</span>
-            <i class="fa-solid fa-chevron-down" id="icon-day3"></i>
-        </div>
-        <div id="day3" class="accordion-content">
-            <ul style="padding-right: 20px; margin: 0;">
-                <li>المبيت بمزدلفة والتوجه لمنى لرمي جمرة العقبة الكبرى.</li>
-                <li>حلق الشعر أو تقصيره والنحر (الهدي).</li>
-                <li>التوجه لمكة لأداء طواف الإفاضة والسعي بين الصفا والمروة.</li>
-            </ul>
-        </div>
-
-        <div class="accordion-header" onclick="toggleAccordion('day4')">
-            <span>أيام التشريق (11، 12، 13 ذو الحجة)</span>
-            <i class="fa-solid fa-chevron-down" id="icon-day4"></i>
-        </div>
-        <div id="day4" class="accordion-content">
-            <ul style="padding-right: 20px; margin: 0;">
-                <li>المبيت في مخيمات منى خلال أيام التشريق.</li>
-                <li>رمي الجمرات الثلاث (الصغرى فالوسطى فالكبرى) بعد زوال الشمس.</li>
-                <li>التعجل لمن أراد في اليوم الثاني عشر أو التأخر لليوم الثالث عشر.</li>
-            </ul>
+        <div class="day-card" onclick="alert('أيام التشريق: المبيت بمنى ورمي الجمرات الثلاث.')">
+            <span class="day-title">أيام التشريق (11، 12، 13 ذو الحجة)</span>
+            <i class="fa-solid fa-chevron-left"></i>
         </div>
     </div>
 
-    <!-- الشريط السفلي -->
+    <!-- الشريط السفلي الثابت -->
     <nav class="bottom-nav">
         <a href="account.html" class="nav-item"><i class="fa-solid fa-user"></i><span>حسابي</span></a>
         <a href="services.html" class="nav-item"><i class="fa-solid fa-concierge-bell"></i><span>الخدمات</span></a>
@@ -78,19 +56,5 @@
         <a href="schedule.html" class="nav-item active"><i class="fa-solid fa-calendar-days"></i><span>الجدول</span></a>
         <a href="notifications.html" class="nav-item"><i class="fa-solid fa-bell"></i><span>التنبيهات</span></a>
     </nav>
-
-    <script>
-        function toggleAccordion(id) {
-            let content = document.getElementById(id);
-            let icon = document.getElementById('icon-' + id);
-            if(content.classList.contains('active')) {
-                content.classList.remove('active');
-                icon.className = "fa-solid fa-chevron-down";
-            } else {
-                content.classList.add('active');
-                icon.className = "fa-solid fa-chevron-up";
-            }
-        }
-    </script>
 </body>
 </html>
