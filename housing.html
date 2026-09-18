@@ -18,7 +18,17 @@
         .hotel-info i { color: #0f3833; }
         
         .btn-bus { background: #0f3833; color: white; border: none; padding: 8px; border-radius: 6px; width: 100%; font-size: 12px; cursor: pointer; margin-top: 10px; text-align: center; }
+
+        /* نافذة منبثقة (Modal) احترافية مطابقة لتصميمك */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
+        .modal-box { background: white; width: 100%; max-width: 380px; padding: 20px; border-radius: 12px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.2); animation: fadeIn 0.3s ease; }
+        .modal-box h3 { color: #0f3833; margin-top: 0; font-size: 16px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .modal-details { background: #f8fafc; padding: 12px; border-radius: 8px; margin-bottom: 15px; text-align: right; font-size: 12px; color: #333; line-height: 1.6; }
+        .modal-details p { margin: 5px 0; }
+        .btn-close { background: #e53935; color: white; border: none; padding: 8px 20px; border-radius: 6px; font-size: 13px; cursor: pointer; width: 100%; font-weight: bold; }
         
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
         /* الشريط السفلي */
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #ddd; z-index: 1000; }
         .nav-item { text-decoration: none; color: #718096; font-size: 11px; text-align: center; display: flex; flex-direction: column; align-items: center; }
@@ -39,7 +49,7 @@
             <div class="hotel-info"><i class="fa-solid fa-location-dot"></i> حي قربان، 300 متر من المسجد النبوي</div>
             <div class="hotel-info"><i class="fa-solid fa-door-closed"></i> رقم الغرفة: 315</div>
             <div class="hotel-info"><i class="fa-solid fa-building"></i> الطابق الثاني</div>
-            <button class="btn-bus" onclick="alert('جاري عرض مواعيد حافلات المدينة...')">مواعيد حافلات المدينة</button>
+            <button class="btn-bus" onclick="openModal('مدينتي', 'نقطة التجمع: بوابة الفندق رقم (2)', 'موعد التحرك: 04:00 صباحاً (إلى الحرم النبوي)', 'حالة النقل: منتظم وجاهز')">مواعيد حافلات المدينة</button>
         </div>
 
         <!-- فندق مكة -->
@@ -48,7 +58,7 @@
             <div class="hotel-info"><i class="fa-solid fa-location-dot"></i> أبراج البيت، إطلالة على الحرم</div>
             <div class="hotel-info"><i class="fa-solid fa-door-closed"></i> رقم الغرفة: 1204</div>
             <div class="hotel-info"><i class="fa-solid fa-building"></i> الطابق الثاني عشر</div>
-            <button class="btn-bus" onclick="alert('جاري عرض مواعيد حافلات مكة...')">مواعيد حافلات مكة</button>
+            <button class="btn-bus" onclick="openModal('مكة المكرمة', 'نقطة التجمع: البوابة الرئيسية للأبراج', 'موعد التحرك: حسب جدول الحرمين المتسلسل', 'حالة النقل: متوفر على مدار الساعة')">مواعيد حافلات مكة</button>
         </div>
 
         <!-- مخيم منى -->
@@ -56,8 +66,21 @@
             <h3>مخيم منى (المشاعر المقدسة)</h3>
             <div class="hotel-info"><i class="fa-solid fa-location-dot"></i> مخيمات الحجاج المطورة، شارع 4</div>
             <div class="hotel-info"><i class="fa-solid fa-campground"></i> رقم المخيم: (42-B)</div>
-            <div class="hotel-info"><i class="fa-solid id-card"></i> رقم الجناح: جناح 3</div>
-            <button class="btn-bus" onclick="alert('جاري عرض مواعيد قطار المشاعر والحافلات...')">مواعيد قطار المشاعر والحافلات</button>
+            <div class="hotel-info"><i class="fa-solid fa-id-card"></i> رقم الجناح: جناح 3</div>
+            <button class="btn-bus" onclick="openModal('المشاعر المقدسة (منى)', 'نقطة التجمع: محطة قطار المشاعر رقم 3', 'موعد التحرك: حسب الجرول الزمني الرسمي', 'حالة النقل: قطار المشاعر والحافلات الرديفة')">مواعيد قطار المشاعر والحافلات</button>
+        </div>
+    </div>
+
+    <!-- نافذة تفاصيل الحافلات (Modal) -->
+    <div id="busModal" class="modal-overlay">
+        <div class="modal-box">
+            <h3 id="modalTitle"><i class="fa-solid fa-bus"></i> تفاصيل النقل</h3>
+            <div class="modal-details">
+                <p id="det1">نقطة التجمع: -</p>
+                <p id="det2">موعد التحرك: -</p>
+                <p id="det3">حالة النقل: -</p>
+            </div>
+            <button class="btn-close" onclick="closeModal()">إغلاق</button>
         </div>
     </div>
 
@@ -69,5 +92,18 @@
         <a href="schedule.html" class="nav-item"><i class="fa-solid fa-calendar-days"></i><span>الجدول</span></a>
         <a href="notifications.html" class="nav-item"><i class="fa-solid fa-bell"></i><span>التنبيهات</span></a>
     </nav>
+
+    <script>
+        function openModal(title, d1, d2, d3) {
+            document.getElementById('modalTitle').innerHTML = '<i class="fa-solid fa-bus"></i> حافلات ' + title;
+            document.getElementById('det1').innerText = d1;
+            document.getElementById('det2').innerText = d2;
+            document.getElementById('det3').innerText = d3;
+            document.getElementById('busModal').style.display = 'flex';
+        }
+        function closeModal() {
+            document.getElementById('busModal').style.display = 'none';
+        }
+    </script>
 </body>
 </html>
