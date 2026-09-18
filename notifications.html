@@ -1,60 +1,7 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>الجدول الزمني للحج - رفقة بلاد الحرمين</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        body { font-family: Tahoma, sans-serif; background-color: #f4f6f8; margin: 0; padding-bottom: 70px; direction: rtl; text-align: right; }
-        .app-header { background-color: #0f3833; color: white; padding: 15px; text-align: center; }
-        .app-header h2 { margin: 0; font-size: 18px; }
-        .sub-title { font-size: 12px; color: #a3b8b0; }
-        
-        .app-content { padding: 15px; max-width: 500px; margin: auto; }
-        
-        .day-card { background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 12px; border-right: 4px solid #0f3833; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
-        .day-title { font-size: 14px; font-weight: bold; color: #0f3833; }
-        .day-card i { color: #0f3833; }
-
-        /* الشريط السفلي */
-        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #ddd; z-index: 1000; }
-        .nav-item { text-decoration: none; color: #718096; font-size: 11px; text-align: center; display: flex; flex-direction: column; align-items: center; }
-        .nav-item i { font-size: 16px; margin-bottom: 3px; }
-        .nav-item.active { color: #0f3833; font-weight: bold; }
-    </style>
-</head>
-<body>
-    <header class="app-header">
-        <h2>الجدول الزمني للحج</h2>
-        <span class="sub-title">موسم الحج 1447 هـ</span>
-    </header>
-
-    <div class="app-content">
-        <div class="day-card" onclick="alert('اليوم الأول: التوجه إلى منى والمبيت بها.')">
-            <span class="day-title">اليوم الأول (8 ذو الحجة - التروية)</span>
-            <i class="fa-solid fa-chevron-left"></i>
-        </div>
-        <div class="day-card" onclick="alert('اليوم الثاني: الوقوف بعرفة ثم المبيت بمزدلفة.')">
-            <span class="day-title">اليوم الثاني (9 ذو الحجة - يوم عرفة)</span>
-            <i class="fa-solid fa-chevron-left"></i>
-        </div>
-        <div class="day-card" onclick="alert('اليوم الثالث: رمي جمرة العقبة، النحر، الحلق، وطواف الإفاضة.')">
-            <span class="day-title">اليوم الثالث (10 ذو الحجة - يوم النحر)</span>
-            <i class="fa-solid fa-chevron-left"></i>
-        </div>
-        <div class="day-card" onclick="alert('أيام التشريق: المبيت بمنى ورمي الجمرات الثلاث.')">
-            <span class="day-title">أيام التشريق (11، 12، 13 ذو الحجة)</span>
-            <i class="fa-solid fa-chevron-left"></i>
-        </div>
-    </div>
-
-    <!-- الشريط السفلي الثابت -->
-    <nav class="bottom-nav">
-        <a href="account.html" class="nav-item"><i class="fa-solid fa-user"></i><span>حسابي</span></a>
-        <a href="services.html" class="nav-item"><i class="fa-solid fa-concierge-bell"></i><span>الخدمات</span></a>
-        <a href="housing.html" class="nav-item"><i class="fa-solid fa-hotel"></i><span>السكن</span></a>
-        <a href="schedule.html" class="nav-item active"><i class="fa-solid fa-calendar-days"></i><span>الجدول</span></a>
-        <a href="notifications.html" class="nav-item"><i class="fa-solid fa-bell"></i><span>التنبيهات</span></a>
-    </nav>
-</body>
-</html>
+<nav class="bottom-nav">
+    <a href="account.html" class="nav-item"><i class="fa-solid fa-user"></i><span>حسابي</span></a>
+    <a href="services.html" class="nav-item"><i class="fa-solid fa-concierge-bell"></i><span>الخدمات</span></a>
+    <a href="housing.html" class="nav-item"><i class="fa-solid fa-hotel"></i><span>السكن</span></a>
+    <a href="schedule.html" class="nav-item"><i class="fa-solid fa-calendar-days"></i><span>الجدول</span></a>
+    <a href="notifications.html" class="nav-item"><i class="fa-solid fa-bell"></i><span>التنبيهات</span></a>
+</nav>
