@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خدمة القيود والمصروفات - رفقة بلاد الحرمين</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header class="header">
+        <h1>خدمة القيود والمصروفات</h1>
+        <p>تسجيل المشتريات ورفع صور الفواتير بكل إتقان</p>
+    </header>
+
+    <main style="padding: 30px; max-width: 600px; margin: auto;">
+        <div style="background: #fff; padding: 25px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+            <h3 style="color: #1b3b2b; margin-top: 0;">إضافة قيد مصروف جديد</h3>
+            
+            <form action="php/save_expense.php" method="POST" enctype="multipart/form-data">
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: bold;">اسم المصروف أو الغرض:</label>
+                    <input type="text" name="expense_title" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;">
+                </div>
+
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: bold;">المبلغ (ريال):</label>
+                    <input type="number" name="expense_amount" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;">
+                </div>
+
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: bold;">رفع صورة الفاتورة:</label>
+                    <input type="file" name="receipt_image" accept="image/*" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: #f9f9f9;">
+                </div>
+
+                <button type="submit" style="background-color: #1b3b2b; color: white; padding: 12px 20px; border: none; border-radius: 5px; cursor: pointer; width: 100%; font-size: 16px;">حفظ القيد</button>
+            </form>
+
+            <div style="text-align: center; margin-top: 20px;">
+                <a href="index.html" style="color: #1b3b2b; text-decoration: none; font-size: 14px;">← العودة إلى الصفحة الرئيسية</a>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>

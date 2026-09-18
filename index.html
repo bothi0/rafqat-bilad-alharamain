@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>تسجيل الدخول - رفقة بلاد الحرمين</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body style="background: #0f3833; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; font-family: Tahoma, sans-serif;">
+
+    <div style="background: #fff; width: 100%; max-width: 400px; border-radius: 16px; padding: 30px 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+        
+        <!-- صورة الشعار -->
+        <div style="width: 70px; height: 70px; background: #0f3833; color: #c5a059; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 32px; margin: 0 auto 10px auto; border: 2px solid #c5a059;">
+            <i class="fa-solid fa-kaaba"></i>
+        </div>
+        
+        <!-- عنوان المنصة -->
+        <h2 style="color: #0f3833; margin: 5px 0 2px 0; font-size: 20px;">تسجيل الدخول</h2>
+        <p style="color: #718096; font-size: 12px; margin-top: 0; margin-bottom: 5px;">نظام رفقة بلاد الحرمين</p>
+        
+        <!-- الكلام اللي تحت الشعار بناءً على طلبك -->
+        <p style="color: #c5a059; font-size: 13px; font-weight: bold; margin-bottom: 25px; line-height: 1.5;">
+            نرافق خطوتك..<br>ونُيسّر رحلتك لتؤدي مناسكك بطمأنينة
+        </p>
+
+        <!-- نموذج الدخول -->
+        <form onsubmit="event.preventDefault(); window.location.href='services.html';" style="text-align: right;">
+            <label style="font-size: 11px; font-weight: bold; color: #0f3833; display: block; margin-bottom: 5px;">رقم الجوال أو البريد الإلكتروني</label>
+            <input type="text" placeholder="ادخل رقم جوالك" required style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #cbd5e1; border-radius: 8px; box-sizing: border-box; font-size: 13px;">
+
+            <label style="font-size: 11px; font-weight: bold; color: #0f3833; display: block; margin-bottom: 5px;">كلمة المرور</label>
+            <input type="password" placeholder="********" required style="width: 100%; padding: 10px; margin-bottom: 20px; border: 1px solid #cbd5e1; border-radius: 8px; box-sizing: border-box; font-size: 13px;">
+
+            <button type="submit" style="width: 100%; background: #0f3833; color: #fff; border: none; padding: 12px; border-radius: 8px; font-size: 14px; font-weight: bold; cursor: pointer; margin-bottom: 10px;">دخول</button>
+        </form>
+
+        <a href="#" style="color: #718096; font-size: 11px; text-decoration: none; display: block; margin-top: 10px;">في حال نسيان كلمة المرور تواصل مع المشرف</a>
+    </div>
+
+</body>
+</html>

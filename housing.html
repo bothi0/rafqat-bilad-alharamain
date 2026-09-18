@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>مقار السكن - رفقة بلاد الحرمين</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
+        .modal-box { background: #fff; width: 100%; max-width: 400px; border-radius: 14px; padding: 20px; text-align: right; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+    </style>
+</head>
+<body>
+    <header class="app-header">
+        <h2>مقار السكن والإقامة</h2>
+        <span class="sub-title">الفنادق والمخيمات في مكة والمدينة</span>
+    </header>
+
+    <div class="app-content">
+        <!-- السكن الأول: المدينة المنورة -->
+        <div class="housing-card" style="margin-bottom: 15px; border-right: 4px solid #c5a059;">
+            <h3>فندق الأندلس (المدينة المنورة)</h3>
+            <p class="address"><i class="fa-solid fa-location-dot text-gold"></i> حي قربان، 300 متر من المسجد النبوي</p>
+            <div class="info-grid">
+                <div class="info-box"><span class="info-label">رقم الغرفة</span><span class="info-value">315</span></div>
+                <div class="info-box"><span class="info-label">الطابق</span><span class="info-value">الثاني</span></div>
+            </div>
+            <button class="btn-bus-schedule" onclick="openBusModal('المدينة المنورة', 'بوابة الفندق رقم (2)', '04:00 صباحاً (إلى الحرم النبوي)')" style="width: 100%; border: none; cursor: pointer; margin-top: 10px; background: #0f3833; color: white; padding: 8px; border-radius: 6px;">
+                <i class="fa-solid fa-bus"></i> مواعيد حافلات المدينة
+            </button>
+        </div>
+
+        <!-- السكن الثاني: مكة المكرمة -->
+        <div class="housing-card" style="margin-bottom: 15px; border-right: 4px solid #0f3833;">
+            <h3>برج مكة هيلتون (مكة المكرمة)</h3>
+            <p class="address"><i class="fa-solid fa-location-dot text-gold"></i> أبراج البيت، إطلالة على الحرم</p>
+            <div class="info-grid">
+                <div class="info-box"><span class="info-label">رقم الغرفة</span><span class="info-value">1204</span></div>
+                <div class="info-box"><span class="info-label">الطابق</span><span class="info-value">الثاني عشر</span></div>
+            </div>
+            <button class="btn-bus-schedule" onclick="openBusModal('مكة المكرمة', 'مواقف الطابق السفلي للبرج', 'على مدار الساعة (كل 15 دقيقة)')" style="width: 100%; border: none; cursor: pointer; margin-top: 10px; background: #0f3833; color: white; padding: 8px; border-radius: 6px;">
+                <i class="fa-solid fa-bus"></i> مواعيد حافلات مكة
+            </button>
+        </div>
+
+        <!-- السكن الثالث: مخيم المشاعر (منى) -->
+        <div class="housing-card" style="border-right: 4px solid #c5a059;">
+            <h3>مخيم منى (المشاعر المقدسة)</h3>
+            <p class="address"><i class="fa-solid fa-location-dot text-gold"></i> مخيمات الحجاج المطورة، شارع 4</p>
+            <div class="info-grid">
+                <div class="info-box"><span class="info-label">رقم المخيم</span><span class="info-value">مخيم (B-42)</span></div>
+                <div class="info-box"><span class="info-label">رقم الجناح</span><span class="info-value">جناح 3</span></div>
+            </div>
+            <button class="btn-bus-schedule" onclick="openBusModal('المشاعر المقدسة (منى وعرفة)', 'محطة الحافلات الرئيسية للمخيم', 'حسب جدول النفرة اليومي')" style="width: 100%; border: none; cursor: pointer; margin-top: 10px; background: #0f3833; color: white; padding: 8px; border-radius: 6px;">
+                <i class="fa-solid fa-bus"></i> مواعيد قطار المشاعر والحافلات
+            </button>
+        </div>
+    </div>
+
+    <!-- نافذة مواعيد الحافلات الموحدة -->
+    <div id="busModal" class="modal-overlay">
+        <div class="modal-box">
+            <h3 id="modalLocationTitle" style="color: #0f3833; margin-top:0;"><i class="fa-solid fa-bus"></i> جدول الحافلات</h3>
+            <p id="modalBusDetails" style="font-size: 13px; color: #4a5568; line-height: 1.6;"></p>
+            <button onclick="closeBusModal()" style="background: #e53e3e; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; width: 100%; margin-top: 10px;">إغلاق</button>
+        </div>
+    </div>
+
+    <!-- الشريط السفلي -->
+    <nav class="bottom-nav">
+        <a href="account.html" class="nav-item"><i class="fa-solid fa-user"></i><span>حسابي</span></a>
+        <a href="services.html" class="nav-item"><i class="fa-solid fa-concierge-bell"></i><span>الخدمات</span></a>
+        <a href="housing.html" class="nav-item active"><i class="fa-solid fa-hotel"></i><span>السكن</span></a>
+        <a href="schedule.html" class="nav-item"><i class="fa-solid fa-calendar-days"></i><span>الجدول</span></a>
+        <a href="notifications.html" class="nav-item"><i class="fa-solid fa-bell"></i><span>التنبيهات</span></a>
+    </nav>
+
+    <script>
+        function openBusModal(location, point, time) {
+            document.getElementById('modalLocationTitle').innerHTML = `<i class="fa-solid fa-bus"></i> حافلات ${location}`;
+            document.getElementById('modalBusDetails').innerHTML = `<b>نقطة التجمع:</b> ${point}<br><b>موعد التحرك:</b> ${time}<br><b>حالة النقل:</b> <span style="color: green; font-weight: bold;">منتظم وجاهز</span>`;
+            document.getElementById('busModal').style.display = 'flex';
+        }
+        function closeBusModal() { document.getElementById('busModal').style.display = 'none'; }
+    </script>
+</body>
+</html>
