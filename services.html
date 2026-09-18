@@ -3,23 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <title>الخدمات والطلبات - رفقة بلاد الحرمين</title>
-    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* التصميم والتنسيقات الأساسية عشان تطلع الألوان والشكل مرتب */
+        body { font-family: Tahoma, sans-serif; background-color: #f4f6f8; margin: 0; padding-bottom: 70px; direction: rtl; text-align: right; }
+        .app-header { background-color: #0f3833; color: white; padding: 15px; text-align: center; }
+        .app-header h2 { margin: 0; font-size: 18px; }
+        .sub-title { font-size: 12px; color: #a3b8b0; }
+        
+        .app-content { padding: 15px; max-width: 500px; margin: auto; }
+        
+        /* شبكة الخدمات */
+        .quick-services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 15px; }
+        .q-service-item { background: white; padding: 15px 10px; border-radius: 10px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); cursor: pointer; transition: 0.2s; }
+        .q-service-item:hover { background: #f0fdf4; }
+        .q-service-item i { font-size: 22px; color: #0f3833; margin-bottom: 8px; display: block; }
+        .q-service-item span { font-size: 12px; color: #333; font-weight: bold; }
+
+        /* البطاقات العامة */
+        .request-card, .rating-card { background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 15px; }
+        .request-card h3, .rating-card h3 { font-size: 14px; color: #0f3833; margin-top: 0; margin-bottom: 8px; }
+
+        /* الشريط السفلي */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #ddd; z-index: 1000; }
+        .nav-item { text-decoration: none; color: #718096; font-size: 11px; text-align: center; display: flex; flex-direction: column; align-items: center; }
+        .nav-item i { font-size: 16px; margin-bottom: 3px; }
+        .nav-item.active { color: #0f3833; font-weight: bold; }
+
+        /* النوافذ المنبثقة */
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
-        .modal-box { background: #fff; width: 100%; max-width: 400px; border-radius: 14px; padding: 20px; text-align: right; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+        .modal-box { background: #fff; width: 100%; max-width: 400px; border-radius: 14px; padding: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); max-height: 85vh; overflow-y: auto; }
         .close-modal { background: #e53e3e; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; float: left; font-size: 11px; }
         
-        /* تنسيق التقييم التفاعلي بالنجوم */
-        .interactive-stars i {
-            color: #cbd5e1;
-            cursor: pointer;
-            font-size: 16px;
-            transition: color 0.2s;
-        }
-        .interactive-stars i.rated {
-            color: #f59e0b;
-        }
+        .service-item-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #eee; font-size: 13px; }
+        .btn-action { background: #0f3833; color: #fff; border: none; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 12px; }
+        
+        .quiz-option { display: block; width: 100%; padding: 10px; margin: 6px 0; border: 1px solid #cbd5e1; border-radius: 6px; background: #f8fafc; text-align: right; cursor: pointer; font-size: 13px; }
+        .quiz-option.correct { background: #d4edda; border-color: #28a745; color: #155724; font-weight: bold; }
+        .quiz-option.wrong { background: #f8d7da; border-color: #dc3545; color: #721c24; }
+
+        .interactive-stars i { color: #cbd5e1; cursor: pointer; font-size: 16px; transition: color 0.2s; }
+        .interactive-stars i.rated { color: #f59e0b; }
+        .text-gold { color: #d97706; }
+        .btn-send-request { background: #0f3833; color: white; border: none; padding: 8px; border-radius: 6px; width: 100%; font-size: 13px; cursor: pointer; margin-top: 5px; }
     </style>
 </head>
 <body>
@@ -31,51 +57,45 @@
     <div class="app-content">
         <!-- الأيقونات التفاعلية للخدمات -->
         <div class="quick-services-grid">
-            <div class="q-service-item" onclick="openServiceModal('اتصال بالمشرف', 'تتيح لك هذه الخدمة التواصل الصوتي أو النصي المباشر مع مشرف الحملة.', 'أدخل تفاصيل الطارئ أو الاستفسار للمشرف:')">
+            <div class="q-service-item" onclick="openModal('supervisorModal')">
                 <i class="fa-solid fa-phone"></i><span>اتصال بالمشرف</span>
             </div>
-            <div class="q-service-item" onclick="openServiceModal('أمتعة مفقودة', 'بلاغات فقدان الحقائب أو الأمتعة الشخصية لتوجيه فريق الحركة.', 'حدد وصف الأمتعة المفقودة ورقم الحافلة أو الغرفة:')">
+            <div class="q-service-item" onclick="openModal('luggageModal')">
                 <i class="fa-solid fa-suitcase"></i><span>أمتعة مفقودة</span>
             </div>
-            <div class="q-service-item" onclick="openServiceModal('رعاية طبية طارئة', 'خدمة الإسعاف الفوري والرعاية الطبية بالتنسيق مع الكادر الطبي.', 'اذكر الحالة الصحية أو الموقع بالتحديد لتوجيه الفريق الطبي:')">
+            <div class="q-service-item" onclick="openModal('medicalModal')">
                 <i class="fa-solid fa-briefcase-medical"></i><span>رعاية طبية</span>
             </div>
-            
-            <!-- الخدمة الثقافية والترفيهية والمسابقات -->
-            <div class="q-service-item" onclick="openCultureModal()">
+            <div class="q-service-item" onclick="openModal('cultureModal')">
                 <i class="fa-solid fa-trophy text-gold"></i><span>ثقافي وترفيهي</span>
             </div>
-
-            <!-- قيود الحملة مع رفع الفاتورة -->
-            <div class="q-service-item" onclick="openBillModal()">
+            <div class="q-service-item" onclick="openModal('billModal')">
                 <i class="fa-solid fa-file-invoice-dollar"></i><span>قيود الحملة (فاتورة)</span>
             </div>
-
-            <div class="q-service-item" onclick="openServiceModal('طلب وجبة خاصة', 'خدمة تتيح لك طلب الوجبات المخصصة والحمية الغذائية.', 'اختر نوع الوجبة المطلوبة واكتب أي ملاحظات:')">
+            <div class="q-service-item" onclick="openModal('mealsModal')">
                 <i class="fa-solid fa-utensils"></i><span>طلب وجبة</span>
             </div>
         </div>
 
-        <!-- غرفة المحادثة (الشات الذكي التفاعلي) -->
+        <!-- غرفة المحادثة -->
         <div class="request-card">
             <h3><i class="fa-solid fa-comments text-gold"></i> غرفة محادثة المشرف المباشر</h3>
-            <p class="sub-title" style="color: #718096; font-size: 11px; margin-bottom: 8px;">اسأل عن أي خدمة (السكن، الحافلات، الطب، الفواتير، المسابقات...)</p>
+            <p class="sub-title" style="color: #718096; margin-bottom: 8px;">اسأل عن أي خدمة (السكن، الحافلات، الطب، الفواتير...)</p>
             
-            <div id="chatContainer" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; height: 130px; padding: 10px; overflow-y: auto; margin-bottom: 10px; font-size: 12px;">
-                <div style="margin-bottom: 8px; background: #e2e8f0; padding: 6px 10px; border-radius: 6px; width: fit-content;"><b>المشرف:</b> أهلاً بك، كيف يمكننا خدمتك اليوم؟</div>
+            <div id="chatContainer" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; height: 110px; padding: 8px; overflow-y: auto; margin-bottom: 8px; font-size: 12px;">
+                <div style="margin-bottom: 6px; background: #e2e8f0; padding: 6px 10px; border-radius: 6px; width: fit-content;"><b>المشرف:</b> أهلاً بك، كيف يمكننا خدمتك اليوم؟</div>
             </div>
             
             <div style="display: flex; gap: 5px;">
-                <input type="text" id="chatInput" placeholder="اكتب سؤالك عن أي خدمة هنا..." style="flex: 1; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 12px;">
-                <button class="btn-send-request" style="margin-top: 0; width: 80px;" onclick="sendSmartChatMessage()">إرسال</button>
+                <input type="text" id="chatInput" placeholder="اكتب سؤالك هنا..." style="flex: 1; padding: 7px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 12px;">
+                <button class="btn-send-request" style="margin-top: 0; width: 70px;" onclick="sendSmartChatMessage()">إرسال</button>
             </div>
         </div>
 
-        <!-- تقييم الخدمات التفاعلي -->
+        <!-- تقييم الخدمات -->
         <div class="rating-card">
             <h3>قيم الخدمات</h3>
-            
-            <div class="rating-item" style="margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; font-size: 13px;">
+            <div style="margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; font-size: 12px;">
                 <span>السكن والإقامة</span>
                 <span class="interactive-stars" id="stars-housing">
                     <i class="fa-solid fa-star" onclick="rateService('housing', 1)"></i>
@@ -85,8 +105,7 @@
                     <i class="fa-solid fa-star" onclick="rateService('housing', 5)"></i>
                 </span>
             </div>
-
-            <div class="rating-item" style="margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; font-size: 13px;">
+            <div style="margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; font-size: 12px;">
                 <span>التنقلات والحافلات</span>
                 <span class="interactive-stars" id="stars-buses">
                     <i class="fa-solid fa-star" onclick="rateService('buses', 1)"></i>
@@ -96,8 +115,7 @@
                     <i class="fa-solid fa-star" onclick="rateService('buses', 5)"></i>
                 </span>
             </div>
-
-            <div class="rating-item" style="display: flex; justify-content: space-between; align-items: center; font-size: 13px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; font-size: 12px;">
                 <span>الخدمات الثقافية</span>
                 <span class="interactive-stars" id="stars-culture">
                     <i class="fa-solid fa-star" onclick="rateService('culture', 1)"></i>
@@ -110,46 +128,100 @@
         </div>
     </div>
 
-    <!-- النافذة العامة للخدمات العادية -->
-    <div id="serviceModal" class="modal-overlay">
+    <!-- النوافذ المنبثقة للخدمات -->
+    <div id="supervisorModal" class="modal-overlay">
         <div class="modal-box">
-            <button class="close-modal" onclick="closeServiceModal()">إغلاق X</button>
-            <h3 id="modalTitle">عنوان الخدمة</h3>
-            <p id="modalDesc">التفاصيل...</p>
-            <hr style="border:0; border-top:1px solid #eee; margin: 15px 0;">
-            <label id="modalInputLabel" style="font-size: 11px; font-weight: bold; color: #0f3833; display: block; margin-bottom: 5px;">المطلوب:</label>
-            <textarea id="modalUserText" placeholder="اكتب التفاصيل هنا..." style="width: 100%; height: 60px; border: 1px solid #cbd5e1; border-radius: 6px; padding: 8px; font-size: 12px; margin-bottom: 10px;"></textarea>
-            <button class="btn-send-request" onclick="submitServiceRequest()">إرسال الطلب</button>
+            <button class="close-modal" onclick="closeModal('supervisorModal')">إغلاق X</button>
+            <h3 style="color: #0f3833; margin-top:0;">الاتصال بالمشرف</h3>
+            <div class="service-item-row">
+                <div><strong>أ. سلطان الزهراني</strong><br><small style="color:#666">المشرف الرئيسي - 0550010001</small></div>
+                <button class="btn-action" onclick="alert('جاري الاتصال...')">اتصل</button>
+            </div>
+            <div class="service-item-row">
+                <div><strong>أ. فهد العنزي</strong><br><small style="color:#666">مشرف الرجال - 0550010002</small></div>
+                <button class="btn-action" onclick="alert('جاري الاتصال...')">اتصل</button>
+            </div>
+            <div class="service-item-row">
+                <div><strong>أ. نورة الشمري</strong><br><small style="color:#666">مشرفة النساء - 0550010003</small></div>
+                <button class="btn-action" onclick="alert('جاري الاتصال...')">اتصل</button>
+            </div>
         </div>
     </div>
 
-    <!-- نافذة قيود الحملة (رفع الفاتورة) -->
-    <div id="billModal" class="modal-overlay">
+    <div id="luggageModal" class="modal-overlay">
         <div class="modal-box">
-            <button class="close-modal" onclick="closeBillModal()">إغلاق X</button>
-            <h3 style="color: #0f3833; margin-top:0;"><i class="fa-solid fa-file-invoice-dollar"></i> قيود الحملة - رفع الفاتورة</h3>
-            <p style="font-size: 12px; color: #4a5568;">قم بتصوير أو رفع فاتورة المصروفات ليتم قراءتها آلياً وتسجيل القيد.</p>
-            <hr style="border:0; border-top:1px solid #eee; margin: 10px 0;">
-            <input type="file" id="billFile" style="width: 100%; font-size: 12px; margin-bottom: 10px;">
-            <button class="btn-send-request" onclick="submitBill()">رفع ومعالجة الفاتورة آلياً</button>
+            <button class="close-modal" onclick="closeModal('luggageModal')">إغلاق X</button>
+            <h3 style="color: #0f3833; margin-top:0;">أمتعة مفقودة</h3>
+            <form onsubmit="event.preventDefault(); alert('تم إرسال بلاغ الأمتعة بنجاح'); closeModal('luggageModal');">
+                <label style="font-size: 11px; font-weight: bold;">نوع الحقيبة ووصفها</label>
+                <input type="text" placeholder="مثال: حقيبة كبيرة سوداء" style="width:100%; padding:7px; margin-bottom:8px; border:1px solid #cbd5e1; border-radius:6px; font-size:12px;" required>
+                <label style="font-size: 11px; font-weight: bold;">العلامة المميزة ورقم الغرفة</label>
+                <input type="text" placeholder="مثال: شريط أحمر - غرفة 204" style="width:100%; padding:7px; margin-bottom:12px; border:1px solid #cbd5e1; border-radius:6px; font-size:12px;" required>
+                <button type="submit" class="btn-send-request">إرسال بلاغ الأمتعة</button>
+            </form>
         </div>
     </div>
 
-    <!-- نافذة الخدمة الثقافية والترفيهية والقرعة الآلية -->
+    <div id="medicalModal" class="modal-overlay">
+        <div class="modal-box">
+            <button class="close-modal" onclick="closeModal('medicalModal')">إغلاق X</button>
+            <h3 style="color: #0f3833; margin-top:0;">الرعاية الطبية</h3>
+            <div class="service-item-row">
+                <div><strong>د. محمد الغامدي</strong><br><small style="color:#666">طبيب الحملة - 0560020001</small></div>
+                <button class="btn-action" onclick="alert('جاري الاتصال...')">اتصل</button>
+            </div>
+            <div class="service-item-row">
+                <div><strong>أ. سارة العتيبي</strong><br><small style="color:#666">ممرضة - 0560020002</small></div>
+                <button class="btn-action" onclick="alert('جاري الاتصال...')">اتصل</button>
+            </div>
+        </div>
+    </div>
+
     <div id="cultureModal" class="modal-overlay">
         <div class="modal-box">
-            <button class="close-modal" onclick="closeCultureModal()">إغلاق X</button>
-            <h3 style="color: #0f3833; margin-top:0;"><i class="fa-solid fa-trophy text-gold"></i> المسابقات الثقافية والترفيهية</h3>
-            <p style="font-size: 12px; color: #4a5568;">شارك في المسابقات اليومية وادخل السحب الآلي فوراً!</p>
-            <div style="background: #f8fafc; padding: 10px; border-radius: 8px; border: 1px solid #e2e8f0; margin: 10px 0; font-size: 12px;">
-                <b>سؤال المسابقة:</b> ما هو أصل التروية في يوم 8 ذو الحجة؟
-                <input type="text" id="quizAnswer" placeholder="اكتب إجابتك هنا..." style="width: 100%; padding: 6px; margin-top: 6px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 12px;">
+            <button class="close-modal" onclick="closeModal('cultureModal')">إغلاق X</button>
+            <h3 style="color: #0f3833; margin-top:0;">الخدمة الثقافية</h3>
+            <p style="font-size: 12px;">س: كم عدد أشواط الطواف حول الكعبة المشرفة؟</p>
+            <button class="quiz-option" onclick="checkAnswer(this, false)">أ) 5 أشواط</button>
+            <button class="quiz-option" onclick="checkAnswer(this, true)">ب) 7 أشواط</button>
+            <div id="quizFeedback" style="display:none; margin-top:8px; padding:6px; background:#e2f0d9; border-radius:4px; font-size:11px; color:#274e13;">
+                <strong>💡 صح!</strong> الطواف سبعة أشواط كاملة.
             </div>
-            <button class="btn-send-request" onclick="runLotteryDraw()" style="background: #c5a059; color: #0f3833; font-weight: bold;">إرسال الإجابة وإجراء القرعة الآلية</button>
         </div>
     </div>
 
-    <!-- الشريط السفلي -->
+    <div id="billModal" class="modal-overlay">
+        <div class="modal-box">
+            <button class="close-modal" onclick="closeModal('billModal')">إغلاق X</button>
+            <h3 style="color: #0f3833; margin-top:0;">رفع الفاتورة</h3>
+            <input type="file" id="billFile" style="width: 100%; font-size: 12px; margin-bottom: 10px;">
+            <button class="btn-send-request" onclick="alert('تم رفع الفاتورة وقراءتها آلياً!'); closeModal('billModal');">رفع ومعالجة</button>
+        </div>
+    </div>
+
+    <div id="mealsModal" class="modal-overlay">
+        <div class="modal-box">
+            <button class="close-modal" onclick="closeModal('mealsModal')">إغلاق X</button>
+            <h3 style="color: #0f3833; margin-top:0;">طلب الوجبات</h3>
+            
+            <div style="background:#f8fafc; padding:8px; border-radius:6px; margin-bottom:8px; border-right:3px solid #0f3833; font-size:12px;">
+                <b>وجبة الإفطار (6:00 - 8:00 ص):</b> بيض مسلوق، خبز، وجبن.<br>
+                <button class="btn-action" style="width:100%; margin-top:5px; font-size:11px;" onclick="alert('تم طلب الإفطار بنجاح')">طلب الوجبة</button>
+            </div>
+
+            <div style="background:#f8fafc; padding:8px; border-radius:6px; margin-bottom:8px; border-right:3px solid #0f3833; font-size:12px;">
+                <b>وجبة الغداء (1:00 - 3:00 م):</b> أرز بخاري ودجاج.<br>
+                <button class="btn-action" style="width:100%; margin-top:5px; font-size:11px;" onclick="alert('تم طلب الغداء بنجاح')">طلب الوجبة</button>
+            </div>
+
+            <div style="background:#f8fafc; padding:8px; border-radius:6px; border-right:3px solid #0f3833; font-size:12px;">
+                <b>وجبة العشاء (7:00 - 9:00 م):</b> كبسة لحم وخبز، مع لبن وفواكه.<br>
+                <button class="btn-action" style="width:100%; margin-top:5px; font-size:11px;" onclick="alert('تم طلب العشاء بنجاح')">طلب الوجبة</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- الشريط السفلي الثابت -->
     <nav class="bottom-nav">
         <a href="account.html" class="nav-item"><i class="fa-solid fa-user"></i><span>حسابي</span></a>
         <a href="services.html" class="nav-item active"><i class="fa-solid fa-concierge-bell"></i><span>الخدمات</span></a>
@@ -159,89 +231,35 @@
     </nav>
 
     <script>
-        // الخدمات العادية
-        function openServiceModal(title, desc, label) {
-            document.getElementById('modalTitle').innerText = title;
-            document.getElementById('modalDesc').innerText = desc;
-            document.getElementById('modalInputLabel').innerText = label;
-            document.getElementById('modalUserText').value = '';
-            document.getElementById('serviceModal').style.display = 'flex';
-        }
-        function closeServiceModal() { document.getElementById('serviceModal').style.display = 'none'; }
-        function submitServiceRequest() {
-            if(document.getElementById('modalUserText').value.trim() === '') { alert('الرجاء كتابة التفاصيل أولاً'); return; }
-            alert('تم إرسال طلبك بنجاح وجاري معالجته!');
-            closeServiceModal();
-        }
-
-        // قيود الفاتورة
-        function openBillModal() { document.getElementById('billModal').style.display = 'flex'; }
-        function closeBillModal() { document.getElementById('billModal').style.display = 'none'; }
-        function submitBill() {
-            let file = document.getElementById('billFile').value;
-            if(!file) { alert('الرجاء اختيار صورة الفاتورة أولاً'); return; }
-            alert('تم استلام الفاتورة وقراءتها آلياً بنجاح وتم تسجيل القيد المالي!');
-            closeBillModal();
-        }
-
-        // الثقافي والترفيهي والقرعة
-        function openCultureModal() { document.getElementById('cultureModal').style.display = 'flex'; }
-        function closeCultureModal() { document.getElementById('cultureModal').style.display = 'none'; }
-        function runLotteryDraw() {
-            let ans = document.getElementById('quizAnswer').value;
-            if(ans.trim() === '') { alert('الرجاء كتابة الإجابة أولاً'); return; }
-            closeCultureModal();
-            setTimeout(() => {
-                alert('🎉 مبروك! تم التصحيح الآلي للإجابة بنجاح وفزت في قرعة المسابقة الثقافية! تم إرسال إشعار تفاعلي إلى صفحة التنبيهات.');
-            }, 500);
-        }
-
-        // التقييم التفاعلي بالنجوم
-        function rateService(category, rating) {
-            let container = document.getElementById('stars-' + category);
-            let stars = container.getElementsByTagName('i');
-            for(let i = 0; i < stars.length; i++) {
-                if(i < rating) {
-                    stars[i].classList.add('rated');
-                } else {
-                    stars[i].classList.remove('rated');
-                }
+        function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+        function checkAnswer(btn, isCorrect) {
+            if (isCorrect) {
+                btn.classList.add('correct');
+                document.getElementById('quizFeedback').style.display = 'block';
+            } else {
+                btn.classList.add('wrong');
+                alert('خطأ، حاول مرة أخرى');
             }
-            alert('شكراً لتقييمك! تم حفظ تقييم الخدمة بـ ' + rating + ' نجوم بنجاح.');
         }
-
-        // الشات الذكي الذي يرد على أي خدمة
+        function rateService(cat, rating) {
+            let stars = document.getElementById('stars-' + cat).getElementsByTagName('i');
+            for(let i=0; i<stars.length; i++) {
+                if(i < rating) stars[i].classList.add('rated');
+                else stars[i].classList.remove('rated');
+            }
+            alert('تم حفظ تقييمك بـ ' + rating + ' نجوم');
+        }
         function sendSmartChatMessage() {
             let input = document.getElementById('chatInput');
-            let container = document.getElementById('chatContainer');
-            let text = input.value.trim();
-            if(text === '') return;
-
-            // إرسال رسالة المستخدم
-            container.innerHTML += `<div style="margin-bottom: 8px; background: #0f3833; color: white; padding: 6px 10px; border-radius: 6px; width: fit-content; margin-right: auto;"><b>أنا:</b> ${text}</div>`;
+            let box = document.getElementById('chatContainer');
+            if(!input.value.trim()) return;
+            box.innerHTML += `<div style="margin-bottom:6px; background:#0f3833; color:white; padding:5px 8px; border-radius:6px; width:fit-content; margin-right:auto;"><b>أنا:</b> ${input.value}</div>`;
             input.value = '';
-            container.scrollTop = container.scrollHeight;
-
-            // توليد رد ذكي بناءً على السؤال
             setTimeout(() => {
-                let reply = "تم استلام استفسارك وجاري خدمتك فوراً.";
-                let lower = text.toLowerCase();
-                
-                if(lower.includes('سكن') || lower.includes('فندق') || lower.includes('غرفة')) {
-                    reply = "بخصوص السكن: يمكنك مراجعة تفاصيل فندق الأندلس والطابق ورقم الغرفة من تبويب (السكن) في الشريط السفلي.";
-                } else if(lower.includes('حافلة') || lower.includes('باص') || lower.includes('نقل') || lower.includes('مواعيد')) {
-                    reply = "بخصوص مواعيد الحافلات: توجد رحلات منتظمة من بوابة الفندق رقم (2) ويمكنك الاطلاع على المواعيد كاملة من تبويب السكن.";
-                } else if(lower.includes('طب') || lower.includes('مرض') || lower.includes('علاج') || lower.includes('إسعاف')) {
-                    reply = "بخصوص الرعاية الطبية: تم إرسال تنبيه للكادر الطبي المرافق لحملك لخدمتك في موقعك فوراً.";
-                } else if(lower.includes('فاتورة') || lower.includes('قيد') || lower.includes('مالي') || lower.includes('مصرات')) {
-                    reply = "بخصوص قيود الحملة والفواتير: يمكنك استخدام زر (قيود الحملة) بالأعلى لتصوير ورفع الفاتورة ليقرأها النظام آلياً.";
-                } else if(lower.includes('مسابق') || lower.includes('ثقاف') || lower.includes('ترفيه') || lower.includes('فوز') || lower.includes('قرعة')) {
-                    reply = "بخصوص المسابقات الثقافية والترفيهية: يمكنك الضغط على أيقونة (ثقافي وترفيهي) للمشاركة بالسحب اليومي والتصحيح الآلي.";
-                }
-
-                container.innerHTML += `<div style="margin-bottom: 8px; background: #e2e8f0; padding: 6px 10px; border-radius: 6px; width: fit-content;"><b>المشرف:</b> ${reply}</div>`;
-                container.scrollTop = container.scrollHeight;
-            }, 1000);
+                box.innerHTML += `<div style="margin-bottom:6px; background:#e2e8f0; padding:5px 8px; border-radius:6px; width:fit-content;"><b>المشرف:</b> تم استلام استفسارك وجاري خدمتك.</div>`;
+                box.scrollTop = box.scrollHeight;
+            }, 800);
         }
     </script>
 </body>
